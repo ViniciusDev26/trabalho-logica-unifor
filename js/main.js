@@ -7,7 +7,7 @@ const data = [
 
 function montarTable() {
   const table = document.querySelector('#table');
-  table.innerHTML = '';
+  table.innerHTML = '<tr> <th>Nome:</th> <th>Email:</th> <th>Telefone:</th> <th>Endereço:</th> <th>Data de nascimento:</th> <th>profissão:</th> <th>linkedin:</th></tr>'
 
   data.forEach(e => {
     const row = document.createElement('tr');
