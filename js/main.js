@@ -1,15 +1,11 @@
-const data = [
-  new Contact("carlos vinicius", "viniciusdev@gmail.com", "(85)99999-9999", "rua", "01/02/2020"),
-  new Contact("carlos vinicius", "viniciusdev@gmail.com", "(85)99999-9999", "rua", "01/02/2020"),
-  new Contact("carlos vinicius", "viniciusdev@gmail.com", "(85)99999-9999", "rua", "01/02/2020"),
-];
+var data = [];
 
-
+// Atualizar os itens da Tabela sempre que houver adição ou exclusão
 function montarTable() {
   const table = document.querySelector('#table');
-  table.innerHTML = '<tr> <th>Nome:</th> <th>Email:</th> <th>Telefone:</th> <th>Endereço:</th> <th>Data de nascimento:</th> <th>profissão:</th> <th>linkedin:</th></tr>'
+  table.innerHTML = '<tr> <th>Nome:</th> <th>Email:</th> <th>Telefone:</th> <th>Endereço:</th> <th>Data de nascimento:</th> <th>profissão:</th> <th>linkedin:</th> <th></th> </tr>'
 
-  data.forEach(e => {
+  data.forEach((e, index) => {
     const row = document.createElement('tr');
 
     const nome = document.createElement('td');
@@ -34,6 +30,18 @@ function montarTable() {
       linkedin.appendChild(a);
     }
 
+    const tdButtonExcluir = document.createElement('td');
+    const buttonExcluir = document.createElement('button');
+    buttonExcluir.className = 'btn btn-danger';
+    buttonExcluir.textContent = 'Excluir'
+    buttonExcluir.addEventListener('click', () => {
+      const newArr = data.filter((e, i) => i != index);
+      data = newArr;
+      montarTable();
+    })
+    tdButtonExcluir.appendChild(buttonExcluir);
+
+
     row.appendChild(nome);
     row.appendChild(email);
     row.appendChild(telefone);
@@ -41,10 +49,12 @@ function montarTable() {
     row.appendChild(dataDeNascimento);
     row.appendChild(profissao);
     row.appendChild(linkedin);
+    row.appendChild(tdButtonExcluir);
     table.appendChild(row);
   });
 }
 
+// Função para adicionar um contato na Tabela, recurando os valores e criando um novo registro 
 function adicionarContato() {
   const nome = document.querySelector('#nome').value;
   const email = document.querySelector('#email').value;
@@ -59,4 +69,5 @@ function adicionarContato() {
   montarTable();
 }
 
+// Montar a tabela a primeira vez assim que carregar a pagina
 window.onload = montarTable();
